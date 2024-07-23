@@ -1,5 +1,6 @@
 package likelion.hack6.match.domain.filter;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,8 +42,9 @@ public class Filter extends RootEntity<Long> {
     @Enumerated(EnumType.STRING)
     private DepartmentsCondition departmentsCondition;
 
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
-    private MatchSide matchSide;
+    private MatchSideState matchSideState;
 
     public Filter(
             Member member,
@@ -50,13 +52,17 @@ public class Filter extends RootEntity<Long> {
             GenderCondition genderCondition,
             GradeCondition gradeCondition,
             DepartmentsCondition departmentsCondition,
-            MatchSide matchSide
+            MatchSideState matchSideState
     ) {
         this.member = member;
         this.ageCondition = ageCondition;
         this.genderCondition = genderCondition;
         this.gradeCondition = gradeCondition;
         this.departmentsCondition = departmentsCondition;
-        this.matchSide = matchSide;
+        this.matchSideState = matchSideState;
+    }
+
+    public void updateMatchSide(MatchSideState matchSideState) {
+        this.matchSideState = matchSideState;
     }
 }
