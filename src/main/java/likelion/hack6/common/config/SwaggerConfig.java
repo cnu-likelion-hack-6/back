@@ -44,8 +44,8 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("Lingda API")
-                .description("Lingda API 문서입니다.")
+                .title("바뱍 API")
+                .description("바뱍 API 문서입니다.")
                 .version("0.0.1");
     }
 }
