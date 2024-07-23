@@ -62,4 +62,8 @@ public class Member extends RootEntity<Long> {
     public void setKakaoId(String kakaoId) {
         profile.setKakaoId(kakaoId);
     }
+
+    public void setupProfile(Profile profile) {
+        this.profile = profile;
+    }
 }

@@ -6,8 +6,10 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
@@ -20,7 +22,7 @@ public class Profile {
 
     private String name;  // 이름
     private String major;  // 전공
-    private String studentNumber;  // 학번
+    private Integer classOf;  // 학번 (ex: 19학번)
 
     @Enumerated(EnumType.STRING)
     private StudentStatus studentStatus;  // 상태
