@@ -8,7 +8,7 @@ import likelion.hack6.member.domain.Profile;
 import likelion.hack6.member.domain.ProfileIcon;
 import likelion.hack6.member.domain.StudentStatus;
 
-public record SetupProfileCommand(
+public record SetProfileCommand(
         String name,
         Gender gender,
         String major,

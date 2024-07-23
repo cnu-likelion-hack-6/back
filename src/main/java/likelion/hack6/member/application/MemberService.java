@@ -2,7 +2,7 @@ package likelion.hack6.member.application;
 
 import jakarta.transaction.Transactional;
 import likelion.hack6.member.application.command.LoginCommand;
-import likelion.hack6.member.application.command.SetupProfileCommand;
+import likelion.hack6.member.application.command.SetProfileCommand;
 import likelion.hack6.member.application.command.SignupCommand;
 import likelion.hack6.member.domain.CodeGenerator;
 import likelion.hack6.member.domain.Member;
@@ -38,10 +38,11 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void sendEmailCertificationCode(Member member, String email) {
+    public String sendEmailCertificationCode(Member member, String email) {
         String code = codeGenerator.generate(4);
         member.sendEmailCertificationCode(email, code);
         memberRepository.save(member);
+        return code;
     }
 
     public void certificateEmail(Member member, String code) {
@@ -49,7 +50,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void setupProfile(Member member, SetupProfileCommand command) {
+    public void setProfile(Member member, SetProfileCommand command) {
         Profile profile = command.toProfile(member);
         member.setupProfile(profile);
         memberRepository.save(member);
