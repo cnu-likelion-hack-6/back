@@ -17,7 +17,7 @@ import likelion.hack6.match.domain.MatchRequestRepository;
 import likelion.hack6.match.domain.filter.Filter;
 import likelion.hack6.match.domain.filter.FilterRepository;
 import likelion.hack6.member.domain.Member;
-import likelion.hack6.university.domain.University;
+import likelion.hack6.member.domain.University;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

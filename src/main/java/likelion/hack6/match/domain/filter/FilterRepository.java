@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import likelion.hack6.common.exception.type.NotFoundException;
 import likelion.hack6.member.domain.Member;
-import likelion.hack6.university.domain.University;
+import likelion.hack6.member.domain.University;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

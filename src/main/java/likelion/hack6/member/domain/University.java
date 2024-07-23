@@ -1,4 +1,4 @@
-package likelion.hack6.university.domain;
+package likelion.hack6.member.domain;
 
 import java.util.Arrays;
 import likelion.hack6.common.exception.type.BadRequestException;

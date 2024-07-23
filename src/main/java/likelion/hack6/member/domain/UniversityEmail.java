@@ -8,7 +8,6 @@ import jakarta.persistence.Enumerated;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import likelion.hack6.common.exception.type.BadRequestException;
-import likelion.hack6.university.domain.University;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
