@@ -18,6 +18,7 @@ import likelion.hack6.member.presentation.request.SetProfileRequest;
 import likelion.hack6.member.presentation.request.SignupRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,7 +84,7 @@ public class MemberController {
     ) {
         memberService.certificateEmail(member, request.code());
     }
-    
+
     @SecurityRequirement(name = "JWT")
     @Operation(summary = "프로필 설정")
     @PostMapping("/profile")
@@ -92,5 +93,14 @@ public class MemberController {
             @Valid @RequestBody SetProfileRequest request
     ) {
         memberService.setProfile(member, request.toCommand());
+    }
+
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "프로필 설정여부 확인")
+    @GetMapping("/profile")
+    public boolean isProfileSetup(
+            @Auth Member member
+    ) {
+        return memberService.isProfileSetup(member);
     }
 }

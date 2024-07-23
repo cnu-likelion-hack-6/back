@@ -21,6 +21,10 @@ public class MemberService {
     private final MemberValidator memberValidator;
     private final CodeGenerator codeGenerator;
 
+    public boolean isProfileSetup(Member member) {
+        return member.getProfile().isSetup();
+    }
+
     public Long signup(SignupCommand command) {
         Member member = command.toMember();
         member.signup(memberValidator);
