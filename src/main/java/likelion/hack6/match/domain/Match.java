@@ -51,4 +51,24 @@ public class Match extends RootEntity<Long> {
         }
         throw new ForbiddenException("해당 Match 에 대한 권한이 없습니다.");
     }
+
+    public String getGivenMessage(Member member) {
+        if (buyer.equals(member)) {
+            return thanksMessageToBuyer;
+        }
+        if (taker.equals(member)) {
+            return thanksMessageToTaker;
+        }
+        throw new ForbiddenException("해당 Match 에 대한 권한이 없습니다.");
+    }
+
+    public Member getOtherSide(Member member) {
+        if (buyer.equals(member)) {
+            return taker;
+        }
+        if (taker.equals(member)) {
+            return buyer;
+        }
+        throw new ForbiddenException("해당 Match 에 대한 권한이 없습니다.");
+    }
 }

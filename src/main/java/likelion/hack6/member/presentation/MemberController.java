@@ -1,5 +1,8 @@
 package likelion.hack6.member.presentation;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.net.URI;
 import likelion.hack6.auth.Auth;
@@ -20,14 +23,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "회원 API")
 @RequiredArgsConstructor
 @RequestMapping("/members")
 @RestController
-public class MemberController implements MemberApi {
+public class MemberController {
 
     private final TokenService tokenService;
     private final MemberService memberService;
 
+    @Operation(summary = "회원가입")
     @PostMapping
     public ResponseEntity<TokenResponse> signup(
             @Valid @RequestBody SignupRequest request
@@ -39,6 +44,7 @@ public class MemberController implements MemberApi {
                 .body(token);
     }
 
+    @Operation(summary = "로그인")
     @PostMapping("/login")
     public TokenResponse login(
             @Valid @RequestBody LoginRequest request
@@ -47,6 +53,8 @@ public class MemberController implements MemberApi {
         return tokenService.createToken(memberId);
     }
 
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "카카오톡 ID 설정")
     @PostMapping("/profile/kakaoId")
     public void setKakaoId(
             @Auth Member member,
@@ -55,6 +63,9 @@ public class MemberController implements MemberApi {
         memberService.setKakaoId(member, request.kakaoId());
     }
 
+    @SecurityRequirement(name = "JWT")
+    // TODO String(확인용) -> void
+    @Operation(summary = "이메일 인증번호 전송")
     @PostMapping("/profile/email/send-code")
     public String sendEmailCertificationCode(
             @Auth Member member,
@@ -63,6 +74,8 @@ public class MemberController implements MemberApi {
         return memberService.sendEmailCertificationCode(member, request.email());
     }
 
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "이메일 인증번호 확인")
     @PostMapping("/profile/email/certificate")
     public void certificateEmail(
             @Auth Member member,
@@ -70,7 +83,9 @@ public class MemberController implements MemberApi {
     ) {
         memberService.certificateEmail(member, request.code());
     }
-
+    
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "프로필 설정")
     @PostMapping("/profile")
     public void setProfile(
             @Auth Member member,

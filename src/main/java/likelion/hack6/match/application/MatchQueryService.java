@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import likelion.hack6.match.application.response.MatchHistoryResponse;
 import likelion.hack6.match.application.response.MatchRequestInfoResponse;
 import likelion.hack6.match.application.response.MatchableMemberResponse;
+import likelion.hack6.match.application.response.ThanksMessageResponse;
 import likelion.hack6.match.domain.Match;
 import likelion.hack6.match.domain.MatchRepository;
 import likelion.hack6.match.domain.MatchRequest;
@@ -83,4 +84,13 @@ public class MatchQueryService {
                 .map(it -> MatchHistoryResponse.of(it, member))
                 .toList();
     }
+
+    // 받은 감사 인사 보기
+    public List<ThanksMessageResponse> findGivenThanksMessages(Member member) {
+        return matchRepository.findAllByBuyerOrTakerOrderByCreatedDateDesc(member)
+                .stream()
+                .map(it -> ThanksMessageResponse.of(it, member))
+                .toList();
+    }
+
 }
