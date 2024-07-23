@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import likelion.hack6.common.domain.RootEntity;
+import likelion.hack6.common.exception.type.ForbiddenException;
 import likelion.hack6.match.domain.filter.Filter;
 import likelion.hack6.match.domain.filter.MatchSideState;
 import likelion.hack6.member.domain.Member;
@@ -100,5 +101,11 @@ public class MatchRequest extends RootEntity<Long> {
 
     public void reject() {
         this.status = RequestStatus.REJECTED;
+    }
+
+    public void validateReceiver(Member member) {
+        if (!receiver.equals(member)) {
+            throw new ForbiddenException("해당 요청에 대한 수락 / 거부 권한이 없습니다.");
+        }
     }
 }

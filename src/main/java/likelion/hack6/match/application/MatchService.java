@@ -50,4 +50,19 @@ public class MatchService {
         matchRequestRepository.save(matchRequest);
         return SendMatchRequestResult.REQUESTED;
     }
+
+    public void accept(Member member, Long matchRequestId) {
+        MatchRequest matchRequest = matchRequestRepository.getById(matchRequestId);
+        matchRequest.validateReceiver(member);
+        Match match = matchRequest.accept();
+        matchRequestRepository.save(matchRequest);
+        matchRepository.save(match);
+    }
+
+    public void reject(Member member, Long matchRequestId) {
+        MatchRequest matchRequest = matchRequestRepository.getById(matchRequestId);
+        matchRequest.validateReceiver(member);
+        matchRequest.reject();
+        matchRequestRepository.save(matchRequest);
+    }
 }
