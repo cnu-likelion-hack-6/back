@@ -4,6 +4,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -30,9 +31,13 @@ public class Member extends RootEntity<Long> {
     @Column(nullable = false)
     private String password;
 
+    @Embedded
+    private Profile profile;
+
     public Member(String phone, String password) {
         this.phone = phone;
         this.password = Sha256.encrypt(password);
+        this.profile = Profile.unsetting();
     }
 
     public void signup(MemberValidator validator) {
@@ -44,5 +49,17 @@ public class Member extends RootEntity<Long> {
             log.info("비밀번호가 불일치로 인한 로그인 실패");
             throw new UnAuthorizedException("Invalid password");
         }
+    }
+
+    public void sendEmailCertificationCode(String email, String code) {
+        profile.sendEmailCertificationCode(email, code);
+    }
+
+    public void certificateEmail(String code) {
+        profile.certificateEmail(code);
+    }
+
+    public void setKakaoId(String kakaoId) {
+        profile.setKakaoId(kakaoId);
     }
 }
