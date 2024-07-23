@@ -1,0 +1,25 @@
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: TRACE
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        highlight_sql: true
+
+    hibernate:
+      ddl-auto: create
+
+swagger:
+  server-url: http://localhost:8080
+
+cors:
+  allowedOrigins: http://localhost:3000
+
+token:
+  secretKey: "dwqcj120fj0c01jtlk13490013j0412j0921309850913j0d09aucsacjas0921u3091rjlkasud8921nkcl9012u093kld13202145fdsaqas9"
+  accessTokenExpirationDays: 2000
