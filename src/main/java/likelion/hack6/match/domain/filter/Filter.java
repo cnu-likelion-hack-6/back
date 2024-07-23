@@ -67,7 +67,7 @@ public class Filter extends RootEntity<Long> {
         this.matchSideState = matchSideState;
     }
 
-    public boolean matchable(Filter otherFilter) {
+    public boolean match(Filter otherFilter) {
         if (!satisfyAgeCond(otherFilter)) {
             return false;
         }

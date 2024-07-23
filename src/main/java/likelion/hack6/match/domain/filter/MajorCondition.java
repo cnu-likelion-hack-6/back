@@ -10,6 +10,9 @@ public enum MajorCondition {
         if (this == BOTH) {
             return true;
         }
-        return StringUtils.equalsIgnoreCase(myMajor, otherMajor);
+        return StringUtils.equalsIgnoreCase(
+                myMajor.replaceAll("\\s", ""),
+                otherMajor.replaceAll("\\s", "")
+        );
     }
 }

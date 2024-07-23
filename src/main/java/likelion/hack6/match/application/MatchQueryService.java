@@ -1,9 +1,13 @@
 package likelion.hack6.match.application;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import likelion.hack6.match.application.response.MatchHistoryResponse;
 import likelion.hack6.match.application.response.MatchableMemberResponse;
 import likelion.hack6.match.domain.Match;
 import likelion.hack6.match.domain.MatchRepository;
@@ -28,6 +32,8 @@ public class MatchQueryService {
     public List<MatchableMemberResponse> findMatchableMembers(Member member) {
         Filter filter = filterRepository.getByMember(member);
         List<Filter> othersMemberFilters = filterRepository.findAll();
+        Map<Member, Filter> memberFilterMap = othersMemberFilters.stream()
+                .collect(Collectors.toMap(Filter::getMember, Function.identity()));
         Set<Member> exceptMembers = new HashSet<>();
         exceptMembers.add(member);  // 자기 자신 제외
 
@@ -43,13 +49,30 @@ public class MatchQueryService {
         for (MatchRequest matchRequest : alreadyRequested) {
             exceptMembers.add(matchRequest.getReceiver());
         }
-        Set<Member> candidates = othersMemberFilters.stream()
-                .filter(it -> it.matchable(filter))
+
+        List<Member> candidates = othersMemberFilters.stream()
+                .filter(it -> it.match(filter))
                 .map(Filter::getMember)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
         candidates.removeAll(exceptMembers);
+        Collections.shuffle(candidates);
+
         return candidates.stream()
-                .map(MatchableMemberResponse::from)
+                .map(candidate ->
+                        MatchableMemberResponse.of(
+                                candidate,
+                                memberFilterMap.get(candidate).getMatchSideState())
+                ).toList();
+    }
+
+    // 매치 요청 보기
+
+
+    // 매치 이력 보기
+    public List<MatchHistoryResponse> findMatchedMembers(Member member) {
+        List<Match> matched = matchRepository.findAllByBuyerOrTakerOrderByCreatedDateDesc(member);
+        return matched.stream()
+                .map(MatchHistoryResponse::from)
                 .toList();
     }
 }

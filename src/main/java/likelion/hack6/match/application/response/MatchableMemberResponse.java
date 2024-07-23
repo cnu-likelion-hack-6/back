@@ -2,6 +2,7 @@ package likelion.hack6.match.application.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Set;
+import likelion.hack6.match.domain.filter.MatchSideState;
 import likelion.hack6.member.domain.Keyword;
 import likelion.hack6.member.domain.Member;
 import likelion.hack6.member.domain.Profile;
@@ -9,6 +10,9 @@ import likelion.hack6.member.domain.ProfileIcon;
 
 public record MatchableMemberResponse(
         Long memberId,
+
+        @Schema(description = "사줄래요(BUYER), 먹을래요(TAKER), 상관없어요(BOTH)")
+        MatchSideState side,
 
         @Schema(description = "프로필 아이콘")
         ProfileIcon profileIcon,
@@ -37,10 +41,11 @@ public record MatchableMemberResponse(
         @Schema(description = "관심 키워드들")
         Set<Keyword> keywords
 ) {
-    public static MatchableMemberResponse from(Member member) {
+    public static MatchableMemberResponse of(Member member, MatchSideState side) {
         Profile profile = member.getProfile();
         return new MatchableMemberResponse(
                 member.getId(),
+                side,
                 profile.getProfileIcon(),
                 profile.getName(),
                 profile.getUniversityEmail().getUniversity().getUniversityName(),
