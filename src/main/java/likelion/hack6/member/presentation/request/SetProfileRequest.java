@@ -39,7 +39,7 @@ public record SetProfileRequest(
         @Schema(description = "한 줄 소개")
         @NotBlank String brief,
 
-        @Schema(description = "관심 키워드들 (없으면 \"\", 여러개면 , 로 구분", example = "CAREERS, EMPLOYMENT")
+        @Schema(description = "관심 키워드들 (없으면 [], 여러개면 , 로 구분", example = "[\"CAREERS\", \"EMPLOYMENT\"]")
         Set<Keyword> keywords
 ) {
     public SetProfileCommand toCommand() {
