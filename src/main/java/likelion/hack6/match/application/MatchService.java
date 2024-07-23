@@ -65,4 +65,10 @@ public class MatchService {
         matchRequest.reject();
         matchRequestRepository.save(matchRequest);
     }
+
+    public void writeThankMessage(Member member, Long matchId, String message) {
+        Match match = matchRepository.getById(matchId);
+        match.writeMessage(member, message);
+        matchRepository.save(match);
+    }
 }

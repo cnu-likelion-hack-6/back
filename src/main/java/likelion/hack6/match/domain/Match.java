@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import likelion.hack6.common.domain.RootEntity;
+import likelion.hack6.common.exception.type.ForbiddenException;
 import likelion.hack6.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,11 +40,15 @@ public class Match extends RootEntity<Long> {
         this.taker = taker;
     }
 
-    public void writeThanksMessageToBuyer(String thanksMessageToBuyer) {
-        this.thanksMessageToBuyer = thanksMessageToBuyer;
-    }
-
-    public void writeThanksMessageToTaker(String thanksMessageToTaker) {
-        this.thanksMessageToTaker = thanksMessageToTaker;
+    public void writeMessage(Member member, String message) {
+        if (buyer.equals(member)) {
+            this.thanksMessageToTaker = message;
+            return;
+        }
+        if (taker.equals(member)) {
+            this.thanksMessageToBuyer = message;
+            return;
+        }
+        throw new ForbiddenException("해당 Match 에 대한 권한이 없습니다.");
     }
 }
