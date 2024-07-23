@@ -115,4 +115,16 @@ public class Filter extends RootEntity<Long> {
     private boolean satisfySideCond(Filter otherFilter) {
         return matchSideState.satisfy(otherFilter.matchSideState);
     }
+
+    public void update(
+            AgeCondition ageCondition,
+            GenderCondition genderCondition,
+            GradeCondition gradeCondition,
+            MajorCondition majorCondition
+    ) {
+        this.ageCondition = ageCondition;
+        this.genderCondition = genderCondition;
+        this.gradeCondition = gradeCondition;
+        this.majorCondition = majorCondition;
+    }
 }

@@ -2,6 +2,7 @@ package likelion.hack6.match.application;
 
 import jakarta.transaction.Transactional;
 import likelion.hack6.match.application.command.CreateFilterCommand;
+import likelion.hack6.match.application.command.UpdateFilterCommand;
 import likelion.hack6.match.domain.filter.Filter;
 import likelion.hack6.match.domain.filter.FilterRepository;
 import likelion.hack6.match.domain.filter.MatchSideState;
@@ -18,6 +19,17 @@ public class FilterService {
 
     public void createFilter(Member member, CreateFilterCommand command) {
         Filter filter = command.toFilter(member);
+        filterRepository.save(filter);
+    }
+
+    public void updateFilter(Member member, UpdateFilterCommand command) {
+        Filter filter = filterRepository.getByMember(member);
+        filter.update(
+                command.ageCondition(),
+                command.genderCondition(),
+                command.gradeCondition(),
+                command.majorCondition()
+        );
         filterRepository.save(filter);
     }
 
