@@ -30,8 +30,20 @@ public class Match extends RootEntity<Long> {
     @JoinColumn(name = "seller_id")
     private Member taker;  // 얻어먹는 사람
 
+    private String thanksMessageToBuyer;
+
+    private String thanksMessageToTaker;
+
     public Match(Member buyer, Member taker) {
         this.buyer = buyer;
         this.taker = taker;
+    }
+
+    public void writeThanksMessageToBuyer(String thanksMessageToBuyer) {
+        this.thanksMessageToBuyer = thanksMessageToBuyer;
+    }
+
+    public void writeThanksMessageToTaker(String thanksMessageToTaker) {
+        this.thanksMessageToTaker = thanksMessageToTaker;
     }
 }

@@ -10,20 +10,34 @@ import likelion.hack6.member.domain.Profile;
 import likelion.hack6.member.domain.ProfileIcon;
 
 public record MatchHistoryResponse(
-        @Schema(description = "사준 사람 정보")
+        @Schema(description = "사준 사람 정보 (비어있는 경우 내가 사줌)")
         MatchedMemberInfo buyerInfo,
 
-        @Schema(description = "얻어먹은 사람 정보")
+        @Schema(description = "얻어먹은 사람 정보 (비어있는 경우 내가 얻어먹음)")
         MatchedMemberInfo takerInfo,
+
+        @Schema(description = "감사 인사를 내가 작성했는지")
+        boolean isAlreadyWriteThanksMessage,
 
         @Schema(description = "매칭된 날짜")
         LocalDateTime matchedDate
 ) {
 
-    public static MatchHistoryResponse from(Match match) {
+    public static MatchHistoryResponse of(Match match, Member member) {
+        // 내가 사준 사람일 때
+        if (match.getBuyer().equals(member)) {
+            return new MatchHistoryResponse(
+                    null,
+                    MatchedMemberInfo.from(match.getTaker()),
+                    match.getThanksMessageToTaker() != null,
+                    match.getCreatedDate()
+            );
+        }
+        // 내가 얻어먹은 사람일 때
         return new MatchHistoryResponse(
                 MatchedMemberInfo.from(match.getBuyer()),
-                MatchedMemberInfo.from(match.getTaker()),
+                null,
+                match.getThanksMessageToBuyer() != null,
                 match.getCreatedDate()
         );
     }

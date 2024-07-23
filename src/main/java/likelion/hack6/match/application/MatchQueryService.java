@@ -73,7 +73,7 @@ public class MatchQueryService {
     public List<MatchHistoryResponse> findMatchedMembers(Member member) {
         List<Match> matched = matchRepository.findAllByBuyerOrTakerOrderByCreatedDateDesc(member);
         return matched.stream()
-                .map(MatchHistoryResponse::from)
+                .map(it -> MatchHistoryResponse.of(it, member))
                 .toList();
     }
 }
