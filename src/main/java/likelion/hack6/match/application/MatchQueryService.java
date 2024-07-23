@@ -16,6 +16,7 @@ import likelion.hack6.match.domain.MatchRequestRepository;
 import likelion.hack6.match.domain.filter.Filter;
 import likelion.hack6.match.domain.filter.FilterRepository;
 import likelion.hack6.member.domain.Member;
+import likelion.hack6.university.domain.University;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,13 +32,13 @@ public class MatchQueryService {
 
     public List<MatchableMemberResponse> findMatchableMembers(Member member) {
         Filter filter = filterRepository.getByMember(member);
-        List<Filter> othersMemberFilters = filterRepository.findAll();
+        University university = member.getProfile().getUniversityEmail().getUniversity();
+        List<Filter> othersMemberFilters = filterRepository.findAllByUniversity(university);
         Map<Member, Filter> memberFilterMap = othersMemberFilters.stream()
                 .collect(Collectors.toMap(Filter::getMember, Function.identity()));
         Set<Member> exceptMembers = new HashSet<>();
         exceptMembers.add(member);  // 자기 자신 제외
 
-        // TODO: 이거 물어보기
         // 이미 밥약을 한 사람(수락이던, 거절이던) 제외
         List<Match> alreadyMatched = matchRepository.findAllByBuyerOrTaker(member);
         for (Match match : alreadyMatched) {

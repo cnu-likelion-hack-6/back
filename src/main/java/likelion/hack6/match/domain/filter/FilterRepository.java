@@ -1,9 +1,12 @@
 package likelion.hack6.match.domain.filter;
 
+import java.util.List;
 import java.util.Optional;
 import likelion.hack6.common.exception.type.NotFoundException;
 import likelion.hack6.member.domain.Member;
+import likelion.hack6.university.domain.University;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface FilterRepository extends JpaRepository<Filter, Long> {
 
@@ -15,4 +18,7 @@ public interface FilterRepository extends JpaRepository<Filter, Long> {
     }
 
     Optional<Filter> findByMember(Member member);
+
+    @Query("SELECT f FROM Filter f WHERE f.member.profile.universityEmail.university = :university")
+    List<Filter> findAllByUniversity(University university);
 }
