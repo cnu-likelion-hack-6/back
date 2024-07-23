@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import likelion.hack6.common.domain.RootEntity;
+import likelion.hack6.member.domain.Gender;
 import likelion.hack6.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public class Filter extends RootEntity<Long> {
     private GradeCondition gradeCondition;
 
     @Enumerated(EnumType.STRING)
-    private DepartmentsCondition departmentsCondition;
+    private MajorCondition majorCondition;
 
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
@@ -51,18 +52,67 @@ public class Filter extends RootEntity<Long> {
             AgeCondition ageCondition,
             GenderCondition genderCondition,
             GradeCondition gradeCondition,
-            DepartmentsCondition departmentsCondition,
+            MajorCondition majorCondition,
             MatchSideState matchSideState
     ) {
         this.member = member;
         this.ageCondition = ageCondition;
         this.genderCondition = genderCondition;
         this.gradeCondition = gradeCondition;
-        this.departmentsCondition = departmentsCondition;
+        this.majorCondition = majorCondition;
         this.matchSideState = matchSideState;
     }
 
     public void updateMatchSide(MatchSideState matchSideState) {
         this.matchSideState = matchSideState;
+    }
+
+    public boolean matchable(Filter otherFilter) {
+        if (!satisfyAgeCond(otherFilter)) {
+            return false;
+        }
+        if (!satisfyGenderCond(otherFilter)) {
+            return false;
+        }
+        if (!satisfyGradeCond(otherFilter)) {
+            return false;
+        }
+        if (satisfyMajorCond(otherFilter)) {
+            return false;
+        }
+        if (satisfySideCond(otherFilter)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean satisfyAgeCond(Filter otherFilter) {
+        int myAge = member.getProfile().getAge();
+        int otherAge = otherFilter.getMember().getProfile().getAge();
+        return ageCondition.satisfy(otherAge) && otherFilter.ageCondition.satisfy(myAge);
+    }
+
+    private boolean satisfyGenderCond(Filter otherFilter) {
+        Gender myGender = member.getProfile().getGender();
+        Gender otherGender = otherFilter.getMember().getProfile().getGender();
+        return genderCondition.satisfy(myGender, otherGender)
+               && otherFilter.genderCondition.satisfy(otherGender, myGender);
+    }
+
+    private boolean satisfyGradeCond(Filter otherFilter) {
+        int myGrade = member.getProfile().getGrade();
+        int otherGrade = otherFilter.getMember().getProfile().getGrade();
+        return gradeCondition.satisfy(otherGrade) && otherFilter.gradeCondition.satisfy(myGrade);
+    }
+
+    private boolean satisfyMajorCond(Filter otherFilter) {
+        String myMajor = member.getProfile().getMajor();
+        String otherMajor = otherFilter.getMember().getProfile().getMajor();
+        return majorCondition.satisfy(myMajor, otherMajor)
+               && otherFilter.majorCondition.satisfy(otherMajor, myMajor);
+    }
+
+    private boolean satisfySideCond(Filter otherFilter) {
+        return matchSideState.satisfy(otherFilter.matchSideState);
     }
 }

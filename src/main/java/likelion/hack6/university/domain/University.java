@@ -2,16 +2,18 @@ package likelion.hack6.university.domain;
 
 import java.util.Arrays;
 import likelion.hack6.common.exception.type.BadRequestException;
+import lombok.Getter;
 
+@Getter
 public enum University {
 
     CHUNGNAM_NATIONAL_UNIVERSITY("충남대학교", "cnu.ac.kr");
 
-    private final String name;
+    private final String universityName;
     private final String emailDomain;
 
-    University(String name, String emailDomain) {
-        this.name = name;
+    University(String universityName, String emailDomain) {
+        this.universityName = universityName;
         this.emailDomain = emailDomain;
     }
 

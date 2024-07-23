@@ -1,9 +1,14 @@
 package likelion.hack6.member.domain;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import java.util.Collections;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +26,10 @@ public class Profile {
     private UniversityEmail universityEmail;
 
     private String name;  // 이름
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     private String major;  // 전공
     private Integer classOf;  // 학번 (ex: 19학번)
 
@@ -34,7 +43,10 @@ public class Profile {
     private ProfileIcon profileIcon;
 
     private String brief;  // 한 줄 소개
-    private Keyword keyword;  //  관심 키워드
+
+    @ElementCollection
+    @CollectionTable(name = "INTEREST_KEYWORD", joinColumns = @JoinColumn(name = "member_id"))
+    private Set<Keyword> keywords;  //  관심 키워드
     private boolean isSetup;
 
     public static Profile unsetting() {
@@ -50,6 +62,7 @@ public class Profile {
                 null,
                 null,
                 null,
+                Collections.emptySet(),
                 false
         );
     }
