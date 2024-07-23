@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import likelion.hack6.match.application.response.MatchHistoryResponse;
+import likelion.hack6.match.application.response.MatchRequestInfoResponse;
 import likelion.hack6.match.application.response.MatchableMemberResponse;
 import likelion.hack6.match.domain.Match;
 import likelion.hack6.match.domain.MatchRepository;
@@ -66,8 +67,14 @@ public class MatchQueryService {
                 ).toList();
     }
 
-    // 매치 요청 보기
-
+    // 처리하지 않은 매치 요청 보기
+    public List<MatchRequestInfoResponse> findAcceptableReceivedMatchRequest(Member member) {
+        List<MatchRequest> acceptable = matchRequestRepository.findAllAcceptableByReceiverOrderByCreatedDateDesc(
+                member);
+        return acceptable.stream()
+                .map(MatchRequestInfoResponse::from)
+                .toList();
+    }
 
     // 매치 이력 보기
     public List<MatchHistoryResponse> findMatchedMembers(Member member) {

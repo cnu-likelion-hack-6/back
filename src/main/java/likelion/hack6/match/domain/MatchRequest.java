@@ -1,5 +1,6 @@
 package likelion.hack6.match.domain;
 
+import static likelion.hack6.match.domain.RequestStatus.NOT_PROCESSED;
 import static likelion.hack6.match.domain.filter.MatchSideState.BOTH;
 import static likelion.hack6.match.domain.filter.MatchSideState.TAKER;
 
@@ -51,6 +52,7 @@ public class MatchRequest extends RootEntity<Long> {
         this.requester = requesterFilter.getMember();
         this.receiverSide = receiverFilter.getMatchSideState();
         this.receiver = receiverFilter.getMember();
+        status = NOT_PROCESSED;
     }
 
     public Match accept() {
