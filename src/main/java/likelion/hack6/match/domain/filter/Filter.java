@@ -41,7 +41,7 @@ public class Filter extends RootEntity<Long> {
     private GradeCondition gradeCondition;
 
     @Enumerated(EnumType.STRING)
-    private MajorCondition majorCondition;
+    private DepartmentCondition departmentCondition;
 
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
@@ -52,14 +52,14 @@ public class Filter extends RootEntity<Long> {
             AgeCondition ageCondition,
             GenderCondition genderCondition,
             GradeCondition gradeCondition,
-            MajorCondition majorCondition,
+            DepartmentCondition departmentCondition,
             MatchSideState matchSideState
     ) {
         this.member = member;
         this.ageCondition = ageCondition;
         this.genderCondition = genderCondition;
         this.gradeCondition = gradeCondition;
-        this.majorCondition = majorCondition;
+        this.departmentCondition = departmentCondition;
         this.matchSideState = matchSideState;
     }
 
@@ -106,10 +106,10 @@ public class Filter extends RootEntity<Long> {
     }
 
     private boolean satisfyMajorCond(Filter otherFilter) {
-        String myMajor = member.getProfile().getMajor();
-        String otherMajor = otherFilter.getMember().getProfile().getMajor();
-        return majorCondition.satisfy(myMajor, otherMajor)
-               && otherFilter.majorCondition.satisfy(otherMajor, myMajor);
+        String myMajor = member.getProfile().getDepartment();
+        String otherMajor = otherFilter.getMember().getProfile().getDepartment();
+        return departmentCondition.satisfy(myMajor, otherMajor)
+               && otherFilter.departmentCondition.satisfy(otherMajor, myMajor);
     }
 
     private boolean satisfySideCond(Filter otherFilter) {
@@ -120,11 +120,11 @@ public class Filter extends RootEntity<Long> {
             AgeCondition ageCondition,
             GenderCondition genderCondition,
             GradeCondition gradeCondition,
-            MajorCondition majorCondition
+            DepartmentCondition departmentCondition
     ) {
         this.ageCondition = ageCondition;
         this.genderCondition = genderCondition;
         this.gradeCondition = gradeCondition;
-        this.majorCondition = majorCondition;
+        this.departmentCondition = departmentCondition;
     }
 }

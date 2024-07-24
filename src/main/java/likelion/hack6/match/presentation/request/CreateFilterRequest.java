@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import likelion.hack6.match.application.command.CreateFilterCommand;
+import likelion.hack6.match.domain.filter.DepartmentCondition;
 import likelion.hack6.match.domain.filter.GenderCondition;
-import likelion.hack6.match.domain.filter.MajorCondition;
 
 public record CreateFilterRequest(
         @Schema(description = "최소 나이")
@@ -23,8 +23,8 @@ public record CreateFilterRequest(
         @Schema(description = "최대 학년")
         @Positive int maxGrade,
 
-        @Schema(description = "전공 필터")
-        @NotNull MajorCondition majorCondition
+        @Schema(description = "학과 필터")
+        @NotNull DepartmentCondition departmentCondition
 ) {
     public CreateFilterCommand toCommand() {
         return new CreateFilterCommand(
@@ -33,7 +33,7 @@ public record CreateFilterRequest(
                 genderCondition,
                 minGrade,
                 maxGrade,
-                majorCondition
+                departmentCondition
         );
     }
 }

@@ -11,7 +11,7 @@ import likelion.hack6.member.domain.StudentStatus;
 public record SetProfileCommand(
         String name,
         Gender gender,
-        String major,
+        String department,
         int classOf,
         StudentStatus studentStatus,
         int grade,
@@ -26,7 +26,7 @@ public record SetProfileCommand(
                 member.getProfile().getUniversityEmail(),
                 name,
                 gender,
-                major,
+                department,
                 classOf,
                 studentStatus,
                 grade,

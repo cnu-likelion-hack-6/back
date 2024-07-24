@@ -49,7 +49,7 @@ public record MatchableMemberResponse(
                 profile.getProfileIcon(),
                 profile.getName(),
                 profile.getUniversityEmail().getUniversity().getUniversityName(),
-                profile.getMajor(),
+                profile.getDepartment(),
                 profile.getGrade(),
                 profile.getClassOf(),
                 profile.getAge(),

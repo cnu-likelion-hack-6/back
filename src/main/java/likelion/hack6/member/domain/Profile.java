@@ -30,7 +30,7 @@ public class Profile {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    private String major;  // 전공
+    private String department;  // 학과
     private Integer classOf;  // 학번 (ex: 19학번)
 
     @Enumerated(EnumType.STRING)

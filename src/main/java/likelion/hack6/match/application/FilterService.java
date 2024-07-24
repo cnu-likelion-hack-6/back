@@ -28,7 +28,7 @@ public class FilterService {
                 command.ageCondition(),
                 command.genderCondition(),
                 command.gradeCondition(),
-                command.majorCondition()
+                command.departmentCondition()
         );
         filterRepository.save(filter);
     }

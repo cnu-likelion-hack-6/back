@@ -83,7 +83,7 @@ public record MatchHistoryResponse(
                     profile.getProfileIcon(),
                     profile.getName(),
                     profile.getUniversityEmail().getUniversity().getUniversityName(),
-                    profile.getMajor(),
+                    profile.getDepartment(),
                     profile.getGrade(),
                     profile.getClassOf(),
                     profile.getAge(),

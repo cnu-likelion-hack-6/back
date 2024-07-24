@@ -1,9 +1,9 @@
 package likelion.hack6.match.application.command;
 
 import likelion.hack6.match.domain.filter.AgeCondition;
+import likelion.hack6.match.domain.filter.DepartmentCondition;
 import likelion.hack6.match.domain.filter.GenderCondition;
 import likelion.hack6.match.domain.filter.GradeCondition;
-import likelion.hack6.match.domain.filter.MajorCondition;
 
 public record UpdateFilterCommand(
         int minAge,
@@ -11,7 +11,7 @@ public record UpdateFilterCommand(
         GenderCondition genderCondition,
         int minGrade,
         int maxGrade,
-        MajorCondition majorCondition
+        DepartmentCondition departmentCondition
 ) {
     public AgeCondition ageCondition() {
         return new AgeCondition(minAge, maxAge);

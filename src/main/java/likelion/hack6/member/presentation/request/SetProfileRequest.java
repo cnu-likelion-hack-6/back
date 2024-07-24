@@ -18,8 +18,8 @@ public record SetProfileRequest(
         @Schema(description = "성별")
         @NotNull Gender gender,
 
-        @Schema(description = "전공")
-        @NotBlank String major,
+        @Schema(description = "학과")
+        @NotBlank String department,
 
         @Schema(description = "학번 (ex: 19)")
         @Positive int classOf,
@@ -46,7 +46,7 @@ public record SetProfileRequest(
         return new SetProfileCommand(
                 name,
                 gender,
-                major,
+                department,
                 classOf,
                 studentStatus,
                 grade,

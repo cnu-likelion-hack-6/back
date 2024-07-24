@@ -43,7 +43,7 @@ public record ThanksMessageResponse(
                 profile.getProfileIcon(),
                 profile.getName(),
                 profile.getUniversityEmail().getUniversity().getUniversityName(),
-                profile.getMajor(),
+                profile.getDepartment(),
                 profile.getGrade(),
                 profile.getClassOf(),
                 match.getGivenMessage(member)

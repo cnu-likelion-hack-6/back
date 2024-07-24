@@ -2,7 +2,7 @@ package likelion.hack6.match.domain.filter;
 
 import org.apache.commons.lang3.StringUtils;
 
-public enum MajorCondition {
+public enum DepartmentCondition {
     ONLY_SAME,
     BOTH;
 
