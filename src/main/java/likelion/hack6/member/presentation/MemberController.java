@@ -1,6 +1,9 @@
 package likelion.hack6.member.presentation;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -10,6 +13,7 @@ import likelion.hack6.auth.TokenResponse;
 import likelion.hack6.auth.TokenService;
 import likelion.hack6.member.application.MemberService;
 import likelion.hack6.member.domain.Member;
+import likelion.hack6.member.domain.University;
 import likelion.hack6.member.presentation.request.CertificateEmailRequest;
 import likelion.hack6.member.presentation.request.LoginRequest;
 import likelion.hack6.member.presentation.request.SendEmailCertificationCodeRequest;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "회원 API")
@@ -65,7 +70,19 @@ public class MemberController {
     }
 
     @SecurityRequirement(name = "JWT")
-    // TODO String(확인용) -> void
+    @Operation(summary = "이메일을 통한 대학교 이름 조회")
+    @GetMapping("/university-by-email")
+    public String getUniversityByEmail(
+            @Auth Member member,
+            @Parameter(in = PATH, required = true, description = "이메일", example = "mallang@cnu.ac.kr")
+            @RequestParam("email") String email
+    ) {
+        University university = University.fromEmail(email);
+        return university.getUniversityName();
+    }
+
+    // TODO return String(확인용) -> void
+    @SecurityRequirement(name = "JWT")
     @Operation(summary = "이메일 인증번호 전송")
     @PostMapping("/profile/email/send-code")
     public String sendEmailCertificationCode(
