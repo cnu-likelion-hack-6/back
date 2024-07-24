@@ -1,6 +1,7 @@
 package likelion.hack6.member.domain;
 
 import java.util.Arrays;
+import java.util.List;
 import likelion.hack6.common.exception.type.BadRequestException;
 import lombok.Getter;
 
@@ -28,7 +29,7 @@ public enum University {
     KYUNGPOOK_NATIONAL_UNIVERSITY("경북대학교", "knu.ac.kr"),
     YEUNGNAM_UNIVERSITY("영남대학교", "yu.ac.kr"),
     KAIST("카이스트", "kaist.ac.kr"),
-    CHUNGNAM_NATIONAL_UNIVERSITY("충남대학교", "cnu.ac.kr"),
+    CHUNGNAM_NATIONAL_UNIVERSITY("충남대학교", "o.cnu.ac.kr", "cnu.ac.kr"),
     CHONNAM_NATIONAL_UNIVERSITY("전남대학교", "jnu.ac.kr"),
     GIST("광주과학기술원", "gist.ac.kr"),
     UNIST("울산과학기술원", "unist.ac.kr"),
@@ -40,17 +41,17 @@ public enum University {
     POSTECH("포항공과대학교", "postech.ac.kr");
 
     private final String universityName;
-    private final String emailDomain;
+    private final List<String> emailDomains;
 
-    University(String universityName, String emailDomain) {
+    University(String universityName, String... emailDomains) {
         this.universityName = universityName;
-        this.emailDomain = emailDomain;
+        this.emailDomains = Arrays.asList(emailDomains);
     }
 
     public static University fromEmail(String email) {
         String domain = email.split("@")[1];
         return Arrays.stream(University.values())
-                .filter(it -> domain.equals(it.emailDomain))
+                .filter(it -> it.getEmailDomains().contains(domain))
                 .findAny()
                 .orElseThrow(() -> new BadRequestException("지원되지 않는 학교 이메일입니다."));
     }

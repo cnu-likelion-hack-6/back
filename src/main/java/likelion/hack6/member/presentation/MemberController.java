@@ -11,6 +11,7 @@ import java.net.URI;
 import likelion.hack6.auth.Auth;
 import likelion.hack6.auth.TokenResponse;
 import likelion.hack6.auth.TokenService;
+import likelion.hack6.main.EmailService;
 import likelion.hack6.member.application.MemberService;
 import likelion.hack6.member.domain.Member;
 import likelion.hack6.member.domain.University;
@@ -37,6 +38,7 @@ public class MemberController {
 
     private final TokenService tokenService;
     private final MemberService memberService;
+    private final EmailService emailService;
 
     @Operation(summary = "회원가입")
     @PostMapping
@@ -89,7 +91,9 @@ public class MemberController {
             @Auth Member member,
             @Valid @RequestBody SendEmailCertificationCodeRequest request
     ) {
-        return memberService.sendEmailCertificationCode(member, request.email());
+        String code = memberService.sendEmailCertificationCode(member, request.email());
+        emailService.sendEmail(request.email(), code);
+        return code;
     }
 
     @SecurityRequirement(name = "JWT")

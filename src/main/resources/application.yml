@@ -13,6 +13,21 @@ spring:
 
     hibernate:
       ddl-auto: create
+  mail:
+    senderEmail: 보내는 사람 이메일 주소
+    host: smtp.naver.com
+    port: 465
+    username: 네이버 아이디
+    password: 네이버 비번
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+          ssl:
+            enable: true
+
 
 swagger:
   server-url: http://localhost:8080
