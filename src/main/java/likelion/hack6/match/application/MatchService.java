@@ -2,6 +2,7 @@ package likelion.hack6.match.application;
 
 import java.util.Optional;
 import likelion.hack6.common.exception.type.ConflictException;
+import likelion.hack6.common.exception.type.ForbiddenException;
 import likelion.hack6.match.application.response.SendMatchRequestResult;
 import likelion.hack6.match.domain.Match;
 import likelion.hack6.match.domain.MatchRepository;
@@ -41,6 +42,11 @@ public class MatchService {
             Match match = matchRequest.accept();
             matchRepository.save(match);
             return SendMatchRequestResult.MATCHED;
+        }
+
+        int requestedCount = matchRequestRepository.countsByRequester(member);
+        if (requestedCount >= 10) {
+            throw new ForbiddenException("이미 10번의 요청을 보내셨습니다. Pro 버전으로 업데이트 하셔야 추가 요청이 가능합니다.");
         }
 
         // 첫 요청이라면, match request 생성

@@ -1,4 +1,4 @@
-package likelion.hack6.main;
+package likelion.hack6.mail;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

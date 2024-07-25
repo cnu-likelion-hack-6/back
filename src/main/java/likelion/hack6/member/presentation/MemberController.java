@@ -11,7 +11,7 @@ import java.net.URI;
 import likelion.hack6.auth.Auth;
 import likelion.hack6.auth.TokenResponse;
 import likelion.hack6.auth.TokenService;
-import likelion.hack6.main.EmailService;
+import likelion.hack6.mail.EmailService;
 import likelion.hack6.member.application.MemberService;
 import likelion.hack6.member.domain.Member;
 import likelion.hack6.member.domain.University;
