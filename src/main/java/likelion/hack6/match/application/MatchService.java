@@ -44,7 +44,7 @@ public class MatchService {
             return SendMatchRequestResult.MATCHED;
         }
 
-        int requestedCount = matchRequestRepository.countsByRequester(member);
+        int requestedCount = matchRequestRepository.countByRequester(member);
         if (requestedCount >= 10) {
             throw new ForbiddenException("이미 10번의 요청을 보내셨습니다. Pro 버전으로 업데이트 하셔야 추가 요청이 가능합니다.");
         }

@@ -23,5 +23,5 @@ public interface MatchRequestRepository extends JpaRepository<MatchRequest, Long
 
     boolean existsByRequesterAndReceiver(Member requester, Member receiver);
 
-    int countsByRequester(Member member);
+    int countByRequester(Member member);
 }
