@@ -92,7 +92,7 @@ public class MemberController {
             @Valid @RequestBody SendEmailCertificationCodeRequest request
     ) {
         String code = memberService.sendEmailCertificationCode(member, request.email());
-        emailService.sendEmail(request.email(), code);
+        //emailService.sendEmail(request.email(), code);
         return code;
     }
 
