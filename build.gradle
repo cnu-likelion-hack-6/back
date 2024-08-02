@@ -41,7 +41,7 @@ dependencies {
     implementation 'software.amazon.awssdk:s3control'
 
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
@@ -53,4 +53,12 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+processResources.dependsOn('copyConfig')
+
+tasks.register('copyConfig', Copy) {
+    from './config-module' // 서브모듈 디렉토리 경로
+    include "**"  // 복사할 파일들
+    into './src/main/resources'  // 복사 위치
 }
