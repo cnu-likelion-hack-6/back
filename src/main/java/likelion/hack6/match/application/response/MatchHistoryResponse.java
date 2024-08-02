@@ -10,6 +10,8 @@ import likelion.hack6.member.domain.Profile;
 import likelion.hack6.member.domain.ProfileIcon;
 
 public record MatchHistoryResponse(
+        Long matchId,
+
         @Schema(description = "사준 사람 정보 (비어있는 경우 내가 사줌)")
         MatchedMemberInfo buyerInfo,
 
@@ -27,6 +29,7 @@ public record MatchHistoryResponse(
         // 내가 사준 사람일 때
         if (match.getBuyer().equals(member)) {
             return new MatchHistoryResponse(
+                    match.getId(),
                     null,
                     MatchedMemberInfo.from(match.getTaker()),
                     match.getThanksMessageToTaker() != null,
@@ -35,6 +38,7 @@ public record MatchHistoryResponse(
         }
         // 내가 얻어먹은 사람일 때
         return new MatchHistoryResponse(
+                match.getId(),
                 MatchedMemberInfo.from(match.getBuyer()),
                 null,
                 match.getThanksMessageToBuyer() != null,
