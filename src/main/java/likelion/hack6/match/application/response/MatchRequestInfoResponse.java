@@ -11,6 +11,8 @@ import likelion.hack6.member.domain.Profile;
 import likelion.hack6.member.domain.ProfileIcon;
 
 public record MatchRequestInfoResponse(
+        Long matchRequestId,
+
         Long memberId,
 
         LocalDateTime requestedTime,
@@ -49,6 +51,7 @@ public record MatchRequestInfoResponse(
         Member requester = matchRequest.getRequester();
         Profile profile = requester.getProfile();
         return new MatchRequestInfoResponse(
+                matchRequest.getId(),
                 requester.getId(),
                 matchRequest.getCreatedDate(),
                 matchRequest.getRequesterSide(),
