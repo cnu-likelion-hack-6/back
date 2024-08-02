@@ -77,10 +77,10 @@ public class Filter extends RootEntity<Long> {
         if (!satisfyGradeCond(otherFilter)) {
             return false;
         }
-        if (satisfyMajorCond(otherFilter)) {
+        if (!satisfyMajorCond(otherFilter)) {
             return false;
         }
-        if (satisfySideCond(otherFilter)) {
+        if (!satisfySideCond(otherFilter)) {
             return false;
         }
         return true;
