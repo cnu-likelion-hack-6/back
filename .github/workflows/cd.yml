@@ -74,7 +74,7 @@ jobs:
         run: |
           docker run \
             -d \
-            --network $${{ env.DOCKER_CONTAINER_NETWORK }} \
+            --network ${{ env.DOCKER_CONTAINER_NETWORK }} \
             --name ${{ env.DOCKER_CONTAINER_NAME }} \
             -p 8080:8080 \
             -e "SPRING_PROFILES_ACTIVE=${{ env.PROFILE }}" \
