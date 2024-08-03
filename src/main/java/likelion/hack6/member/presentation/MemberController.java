@@ -124,4 +124,13 @@ public class MemberController {
     ) {
         return memberService.isProfileSetup(member);
     }
+
+    @SecurityRequirement(name = "JWT")
+    @Operation(summary = "내 정보 조회")
+    @GetMapping("/my")
+    public getProfile(
+            @Auth Member member
+    ) {
+        return memberService.isProfileSetup(member);
+    }
 }
