@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import likelion.hack6.common.domain.RootEntity;
 import likelion.hack6.common.exception.type.ForbiddenException;
 import likelion.hack6.member.domain.Member;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Table(name = "matches")
 public class Match extends RootEntity<Long> {
 
     @Id
