@@ -42,7 +42,7 @@ swagger:
   server-url: http://localhost:8080
 
 cors:
-  allowedOrigins: http://localhost:3000
+  allowedOrigins: http://localhost:3000, http://localhost:3000/
 
 token:
   secretKey: "dwqcj120fj0c01jtlk13490013j0412j0921309850913j0d09aucsacjas0921u3091rjlkasud8921nkcl9012u093kld13202145fdsaqas9"

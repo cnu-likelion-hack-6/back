@@ -25,23 +25,13 @@ public record MatchHistoryResponse(
         LocalDateTime matchedDate
 ) {
 
-    public static MatchHistoryResponse of(Match match, Member member) {
+    public static MatchHistoryResponse of(Match match) {
         // 내가 사준 사람일 때
-        if (match.getBuyer().equals(member)) {
-            return new MatchHistoryResponse(
-                    match.getId(),
-                    null,
-                    MatchedMemberInfo.from(match.getTaker()),
-                    match.getThanksMessageToTaker() != null,
-                    match.getCreatedDate()
-            );
-        }
-        // 내가 얻어먹은 사람일 때
         return new MatchHistoryResponse(
                 match.getId(),
                 MatchedMemberInfo.from(match.getBuyer()),
-                null,
-                match.getThanksMessageToBuyer() != null,
+                MatchedMemberInfo.from(match.getTaker()),
+                match.getThanksMessageToTaker() != null,
                 match.getCreatedDate()
         );
     }
