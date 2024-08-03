@@ -31,7 +31,7 @@ public class MatchService {
 
         // TODO : if required, verify member's filter match with targetMember's filter
 
-        if (matchRequestRepository.existsByRequesterAndReceiver(target, member)) {
+        if (matchRequestRepository.existsByRequesterAndReceiver(member, target)) {
             throw new ConflictException("이미 해당 사용자에게 밥약 신청을 보냈습니다.");
         }
 
