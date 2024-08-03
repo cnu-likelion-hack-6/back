@@ -16,6 +16,6 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     @Query("SELECT m FROM Match m WHERE m.buyer = :member OR m.taker = :member")
     List<Match> findAllByBuyerOrTaker(Member member);
 
-    @Query("SELECT m FROM Match m WHERE m.buyer = :member OR m.taker = :member ORDER BY m.createdDate DESC")
+    @Query("SELECT DISTINCT m FROM Match m WHERE m.buyer = :member OR m.taker = :member ORDER BY m.createdDate DESC")
     List<Match> findAllByBuyerOrTakerOrderByCreatedDateDesc(Member member);
 }
