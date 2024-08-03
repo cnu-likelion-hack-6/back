@@ -70,9 +70,21 @@ public enum University {
     HANBAT_NATIONAL_UNIVERSITY("한밭대학교", "hanbat.ac.kr"),
     HANSUNG_UNIVERSITY("한성대학교", "hansung.ac.kr"),
     HANYANG_UNIVERSITY("한양대학교", "hanyang.ac.kr"),
-    //HANYANG_UNIVERSITY_ERICA("한양대학교 ERICA캠퍼스", "hanyang.ac.kr"),
-    POSTECH("포항공과대학교", "postech.ac.kr"),
-    ;
+    KONGJU_NATIONAL_UNIVERSITY("공주대학교", "kongju.ac.kr"),
+    KOREA_NATIONAL_UNIVERSITY_OF_TRANSPORTATION_SECOND("한국교통대학교", "a.ut.ac.kr"),
+    BAEKSUK_UNIVERSITY("백석대학교", "bu.ac.kr"),
+    SUNMOON_UNIVERSITY("선문대학교", "sunmoon.ac.kr"),
+    HOSEO_UNIVERSITY("호서대학교", "hoseo.ac.kr"),
+    HANSEO_UNIVERSITY("한서대학교", "hanseo.ac.kr"),
+    CHEONGJU_UNIVERSITY("청주대학교", "cju.ac.kr"),
+    SEOWON_UNIVERSITY("서원대학교", "seowon.ac.kr"),
+    KONYANG_UNIVERSITY("건양대학교", "konyang.ac.kr"),
+    MOKWON_UNIVERSITY("목원대학교", "mokwon.ac.kr"),
+    PAICHAI_UNIVERSITY("배재대학교", "pcu.ac.kr"),
+    HANNAM_UNIVERSITY("한남대학교", "hannam.ac.kr"),
+    WOOSONG_UNIVERSITY("우송대학교", "wsi.ac.kr"),
+    DONGSEO_UNIVERSITY("대전대학교", "dju.ac.kr"),
+    DANKOOK_UNIVERSITY_CHEONAN_CAMPUS("단국대학교 천안캠퍼스", "dankook.ac.kr");;
 
     private final String universityName;
     private final List<String> emailDomains;
