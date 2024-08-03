@@ -15,6 +15,14 @@ public record CreateFilterCommand(
         int maxGrade,
         DepartmentCondition departmentCondition
 ) {
+    public AgeCondition ageCondition() {
+        return new AgeCondition(minAge, maxAge);
+    }
+
+    public GradeCondition gradeCondition() {
+        return new GradeCondition(minGrade, maxGrade);
+    }
+
     public Filter toFilter(Member member) {
         return new Filter(
                 member,

@@ -37,7 +37,7 @@ public class FilterController {
         return filterQueryService.hasFilter(member);
     }
 
-    @Operation(summary = "필터 최초 설정")
+    @Operation(summary = "필터 설정(생성/수정)")
     @PostMapping
     public void createFilter(
             @Auth Member member,
