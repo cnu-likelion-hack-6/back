@@ -36,15 +36,15 @@ public class DataInit {
         Member save = memberRepository.save(new Member("01011111111", "1234"));
         Member save1 = memberRepository.save(new Member("01011111112", "1234"));
         save.setupProfile(new Profile(
-                "1",
-                new UniversityEmail("1@o.cnu.ac.kr", "1"),
-                "1",
+                "test1",
+                new UniversityEmail("test1@o.cnu.ac.kr", "1"),
+                "이건하",
                 Gender.MAN,
-                "컴융",
-                1,
+                "인공지능",
+                19,
                 StudentStatus.CURRENT,
-                1,
-                20,
+                2,
+                21,
                 ProfileIcon.ICON_1,
                 "q",
                 Set.of(),
@@ -52,12 +52,12 @@ public class DataInit {
         ));
 
         save1.setupProfile(new Profile(
-                "2",
+                "test2",
                 new UniversityEmail("2@o.cnu.ac.kr", "1"),
-                "2",
-                Gender.MAN,
+                "황현정",
+                Gender.GIRL,
                 "컴융",
-                1,
+                21,
                 StudentStatus.CURRENT,
                 1,
                 20,
