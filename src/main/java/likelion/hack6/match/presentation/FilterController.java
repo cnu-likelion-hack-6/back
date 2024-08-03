@@ -7,10 +7,12 @@ import jakarta.validation.Valid;
 import likelion.hack6.auth.Auth;
 import likelion.hack6.match.application.FilterQueryService;
 import likelion.hack6.match.application.FilterService;
+import likelion.hack6.match.application.response.MyFilterResponse;
 import likelion.hack6.match.presentation.request.CreateFilterRequest;
 import likelion.hack6.match.presentation.request.UpdateMatchSideRequest;
 import likelion.hack6.member.domain.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -52,5 +54,13 @@ public class FilterController {
             @Valid @RequestBody UpdateMatchSideRequest request
     ) {
         filterService.updateMatchSide(member, request.state());
+    }
+
+    @Operation(summary = "내 필터 상태 조회")
+    @PutMapping("/my")
+    public ResponseEntity<MyFilterResponse> getMyFilter(
+            @Auth Member member
+    ) {
+        return ResponseEntity.ok(filterQueryService.getMyFilter(member));
     }
 }

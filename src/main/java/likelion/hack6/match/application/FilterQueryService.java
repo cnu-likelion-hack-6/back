@@ -1,5 +1,7 @@
 package likelion.hack6.match.application;
 
+import likelion.hack6.match.application.response.MyFilterResponse;
+import likelion.hack6.match.domain.filter.Filter;
 import likelion.hack6.match.domain.filter.FilterRepository;
 import likelion.hack6.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +17,10 @@ public class FilterQueryService {
 
     public boolean hasFilter(Member member) {
         return filterRepository.existsByMember(member);
+    }
+
+    public MyFilterResponse getMyFilter(Member member) {
+        Filter filter = filterRepository.getByMember(member);
+        return MyFilterResponse.from(filter);
     }
 }
