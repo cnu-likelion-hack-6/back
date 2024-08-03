@@ -21,6 +21,7 @@ import likelion.hack6.member.presentation.request.SendEmailCertificationCodeRequ
 import likelion.hack6.member.presentation.request.SetKakaoIdRequest;
 import likelion.hack6.member.presentation.request.SetProfileRequest;
 import likelion.hack6.member.presentation.request.SignupRequest;
+import likelion.hack6.member.presentation.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -128,9 +129,9 @@ public class MemberController {
     @SecurityRequirement(name = "JWT")
     @Operation(summary = "내 정보 조회")
     @GetMapping("/my")
-    public getProfile(
+    public MemberResponse getProfile(
             @Auth Member member
     ) {
-        return memberService.isProfileSetup(member);
+        return MemberResponse.from(member);
     }
 }
