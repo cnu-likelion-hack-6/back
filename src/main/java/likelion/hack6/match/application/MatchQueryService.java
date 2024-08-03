@@ -1,6 +1,5 @@
 package likelion.hack6.match.application;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +57,6 @@ public class MatchQueryService {
                 .map(Filter::getMember)
                 .collect(Collectors.toList());
         candidates.removeAll(exceptMembers);
-        Collections.shuffle(candidates);
 
         return candidates.stream()
                 .map(candidate ->
