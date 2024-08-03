@@ -8,7 +8,6 @@ import likelion.hack6.auth.Auth;
 import likelion.hack6.match.application.FilterQueryService;
 import likelion.hack6.match.application.FilterService;
 import likelion.hack6.match.presentation.request.CreateFilterRequest;
-import likelion.hack6.match.presentation.request.UpdateFilterRequest;
 import likelion.hack6.match.presentation.request.UpdateMatchSideRequest;
 import likelion.hack6.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -44,15 +43,6 @@ public class FilterController {
             @Valid @RequestBody CreateFilterRequest request
     ) {
         filterService.createFilter(member, request.toCommand());
-    }
-
-    @Operation(summary = "필터 업데이트")
-    @PutMapping
-    public void updateFilter(
-            @Auth Member member,
-            @Valid @RequestBody UpdateFilterRequest request
-    ) {
-        filterService.updateFilter(member, request.toCommand());
     }
 
     @Operation(summary = "밥약 신청 상태 변경 (신청할래요, 먹을래요, 둘 다 좋아요)")
